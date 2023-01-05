@@ -2,23 +2,22 @@ package classes;
 
 import enums.TaxiType;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class Client {
     private Long id;
-    private String model;
-    private String number;
-    private String colour;
-    private LocalDate year;
-    private TaxiType taxiType;
+    private String fullName;
+    private LocalDate dateOfBirth;
+    private String phoneNumber;
+    private BigDecimal money;
 
-    public void Taxi  (Long id, String model, String number, String colour, LocalDate year, TaxiType taxiType) {
+    public Client(Long id, String fullName, LocalDate dateOfBirth, String phoneNumber, BigDecimal money) {
         this.id = id;
-        this.model = model;
-        this.number = number;
-        this.colour = colour;
-        this.year = year;
-        this.taxiType = taxiType;
+        this.fullName = fullName;
+        this.dateOfBirth = dateOfBirth;
+        this.phoneNumber = phoneNumber;
+        this.money = money;
     }
 
     public Long getId() {
@@ -29,55 +28,46 @@ public class Client {
         this.id = id;
     }
 
-    public String getModel() {
-        return model;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setModel(String model) {
-        this.model = model;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
-    public String getNumber() {
-        return number;
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
-    public String getColour() {
-        return colour;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setColour(String colour) {
-        this.colour = colour;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
-    public LocalDate getYear() {
-        return year;
+    public BigDecimal getMoney() {
+        return money;
     }
 
-    public void setYear(LocalDate year) {
-        this.year = year;
-    }
-
-    public TaxiType getTaxiType() {
-        return taxiType;
-    }
-
-    public void setTaxiType(TaxiType taxiType) {
-        this.taxiType = taxiType;
+    public void setMoney(BigDecimal money) {
+        this.money = money;
     }
 
     @Override
     public String toString() {
-        return "\nTAXI : " +
+        return "\nCLIENT : " +
                 "\nID : " + id +
-                "\nMODEL : " + model +
-                "\nNUMBER : " + number +
-                "\nCOLOR : " + colour +
-                "\nYEAR : " + year +
-                "\nTAXI TYPE : " + taxiType +
-                "\n*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*";
+                "\nFULL NAME : " + fullName +
+                "\nDATE OF BIRTH : " + dateOfBirth +
+                "\nPHONE NUMBER : " + phoneNumber +
+                "\nMONEY : " + money +
+                "\n*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*";
     }
 }

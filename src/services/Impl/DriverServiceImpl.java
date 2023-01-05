@@ -27,10 +27,10 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     public Driver findById(Long id) {
-        for(Driver driver : this.driverList){
-            if(Objects.equals(driver.getId(), id)){
+        for (Driver driver : this.driverList) {
+            if (Objects.equals(driver.getId(), id)) {
                 return driver;
-            }else{
+            } else {
                 System.out.println("wrong id!!");
             }
         }
@@ -43,29 +43,28 @@ public class DriverServiceImpl implements DriverService {
     }
 
 
-
     @Override
-    public String assignTaxiToDriver(Long taxiId, Long driverId)  {
-        try{
+    public String assignTaxiToDriver(Long taxiId, Long driverId) {
+        try {
             Database database = new Database();
             Driver activeDriver = null;
             Taxi activeTaxi = null;
             for (Driver driver : database.getDrivers()) {
-                if(Objects.equals(driver.getId(), driverId)){
+                if (Objects.equals(driver.getId(), driverId)) {
                     activeDriver = driver;
                 }
             }
             for (Taxi taxi : database.getTaxis()) {
-                if(Objects.equals(taxiId, taxi.getId())){
+                if (Objects.equals(taxiId, taxi.getId())) {
                     activeTaxi = taxi;
                 }
             }
             assert activeDriver != null;
             activeDriver.setTaxi(activeTaxi);
             return "successfully assigned!!";
-        }catch (InputMismatchException e){
+        } catch (InputMismatchException e) {
             throw new InputMismatchException("wrong input");
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return "error";
@@ -79,7 +78,7 @@ public class DriverServiceImpl implements DriverService {
 
         Database database = new Database();
         for (Taxi taxi1 : database.getTaxis()) {
-            if (Objects.equals(taxi1.getId(), taxiId)){
+            if (Objects.equals(taxi1.getId(), taxiId)) {
                 activeTaxi = taxi1;
             }
         }
@@ -104,7 +103,7 @@ public class DriverServiceImpl implements DriverService {
         Scanner scanner = new Scanner(System.in);
         Database database = new Database();
         for (Driver driver : database.getDrivers()) {
-            if (driver.getName().equals(driverName)){
+            if (driver.getName().equals(driverName)) {
                 System.out.println("surname: ");
                 driver.setSurname(scanner.next());
                 System.out.println("phone number: ");
