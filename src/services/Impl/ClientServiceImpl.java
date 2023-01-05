@@ -73,7 +73,7 @@ public class ClientServiceImpl implements ClientService {
     public Map<Integer, Client> getClientAge() {
         Map<Integer, Client> clientMap = new HashMap<>();
         for (Client client : database.getClients()) {
-            clientMap.put(client.getDateOfBirth().minusYears(LocalDate.now().getYear()).getYear(), client);
+            clientMap.put(LocalDate.now().minusYears(client.getDateOfBirth().getYear()).getYear(), client);
         }
         return clientMap;
     }
