@@ -1,4 +1,4 @@
-package model;
+package classes;
 
 import enums.TaxiType;
 
