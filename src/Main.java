@@ -41,5 +41,6 @@ public class Main {
         Driver driver5 = new Driver(5L,"altyn5","shakirov",Gender.FEMALE,"333223",license5,new BigDecimal(2000),taxi5);
         List<Driver>drivers = new ArrayList<>(List.of(driver1,driver2,driver3,driver4,driver5));
 
+
     }
 }
