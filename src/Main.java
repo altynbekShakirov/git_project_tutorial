@@ -2,22 +2,28 @@ import classes.Client;
 import classes.Driver;
 import classes.License;
 import classes.Taxi;
+import dao.Database;
 import enums.Gender;
 import enums.TaxiType;
+import services.Impl.ClientServiceImpl;
+import services.Impl.DriverServiceImpl;
+import services.Impl.TaxiServiceImpl;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
         List<Client>clients = new ArrayList<>(List.of(
                 new Client(1L,"kutman1",LocalDate.of(2000,2,1),"233234",new BigDecimal(2000)),
-                new Client(2L,"kutman2",LocalDate.of(2000,2,1),"233234",new BigDecimal(2000)),
-                new Client(3L,"kutman3",LocalDate.of(2000,2,1),"233234",new BigDecimal(2000)),
-                new Client(4L,"kutman4",LocalDate.of(2000,2,1),"233234",new BigDecimal(2000)),
-                new Client(5L,"kutman5",LocalDate.of(2000,2,1),"233234",new BigDecimal(2000))
+                new Client(2L,"kutman2",LocalDate.of(2001,2,1),"233234",new BigDecimal(3000)),
+                new Client(3L,"kutman3",LocalDate.of(2002,2,1),"233234",new BigDecimal(1000)),
+                new Client(4L,"kutman4",LocalDate.of(2003,2,1),"233234",new BigDecimal(4000)),
+                new Client(5L,"kutman5",LocalDate.of(2004,2,1),"233234",new BigDecimal(22000))
         ));
 
         License license1 = new License(1L,LocalDate.of(2010,1,1),LocalDate.of(2030,2,2));
@@ -40,7 +46,110 @@ public class Main {
         Driver driver4 = new Driver(4L,"altyn4","shakirov",Gender.FEMALE,"333223",license4,new BigDecimal(2000),taxi4);
         Driver driver5 = new Driver(5L,"altyn5","shakirov",Gender.FEMALE,"333223",license5,new BigDecimal(2000),taxi5);
         List<Driver>drivers = new ArrayList<>(List.of(driver1,driver2,driver3,driver4,driver5));
+        Database database = new Database();
+        ClientServiceImpl clientService = new ClientServiceImpl();
+        clientService.addClient(clients);
+        DriverServiceImpl driverService = new DriverServiceImpl();
+        driverService.add(drivers);
+        TaxiServiceImpl taxiService = new TaxiServiceImpl();
+        taxiService.add(taxis);
+        while (true) {
+            System.out.println("""
+                    1 - client
+                    2 - driver
+                    3 - taxi""");
+            switch (scanner.nextInt()) {
+                case 1:
+                    System.out.println("""
+                            1 - get client by name
+                            2 - remuve client by id
+                            3 - order taxi
+                            4 - get client age
+                            5 - universalSorting
+                                                    """);
+                    switch (scanner.nextInt()) {
+                        case 1:
+                            String f = scanner.nextLine();
+                            System.out.println(clientService.getClientByName(scanner.nextLine()));
+                            break;
+                        case 2:
+                            System.out.println(clientService.removeClientById(scanner.nextLong()));
+                            break;
+                        case 3:
+                            System.out.println(clientService.orderTaxi(scanner.nextLong(), scanner.nextLine()));
+                            break;
+                        case 4:
+                            System.out.println(clientService.getClientAge());
+                            break;
+                        case 5:
+                            String d = scanner.nextLine();
+                            clientService.universalSorting(scanner.nextLine());
+                            break;
+                        default:
+                            System.out.println("error");
+                    }
+                    break;
+                case 2:
+                    System.out.println("""
+                            1 - fi by id
+                            2 -fi by name
+                            3 - assignTaxiToDriver
+                            4 - changeTaxiOrDriver
+                            5 - getDriverByTaxiModel
+                            6 - update by name
+                            """);
+                    switch (scanner.nextInt()){
+                        case 1:
+                            System.out.println(driverService.findById(scanner.nextLong()));
+                            break;
+                        case 2:
+                            System.out.println(driverService.findByName(scanner.nextLine()));
+                            break;
+                        case 3:
+                            System.out.println(driverService.assignTaxiToDriver(scanner.nextLong(), scanner.nextLong()));
+                            break;
+                        case 4:
+                            System.out.println(driverService.changeTaxiOrDriver(scanner.nextLong(), scanner.nextLong()));
+                            break;
+                        case 5:
+                            System.out.println(driverService.getDriverByTaxiModel(scanner.nextLine()));
+                            break;
+                        case 6:
+                            driverService.update(scanner.nextLine());
+                            break;
+                    }
+                    break;
+                case 3:
+                    System.out.println("""
+                            1 - findByInitialLetter
+                            2 - grouping
+                            3 - filterByTaxiType
+                            4 - update""");
+                    switch (scanner.nextInt()){
+                        case 1:
+                            System.out.println(taxiService.findByInitialLetter(scanner.nextLine()));
+                            break;
+                        case 2:
+                            System.out.println(taxiService.grouping());
+                            break;
+                        case 3:
+                            System.out.println(taxiService.filterByTaxiType(scanner.nextLine()));
+                            break;
+                        case 4:
+                            taxiService.update(scanner.nextLong());
+                            break;
+                        default:
+                            System.out.println("error");
 
 
+                    }
+
+
+                    break;
+                default:
+                    System.out.println("error");
+            }
+
+        }
     }
 }
